@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Funny Roast Calculator 😄</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 500px;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      input,
+      button {
+        width: 100%;
+        height: 30px;
+        margin-top: 10px;
+        font-size: 20px;
+      }
+      .output {
+        font-size: 20px;
+        color: #333;
+      }
+      .roast {
+        margin-top: 15px;
+        color: red;
+        font-weight: bold;
+      }
+
+      @media screen and (max-width: 600px) {
+        input,
+        button {
+          width: 94%;
+          margin: auto 20px;
+          height: 70px;
+          font-size: 25px;
+        }
+        button{
+            margin-top: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Funny Roast Calculator 🤓</h2>
+    <input
+      type="text"
+      id="expression"
+      placeholder="Enter math expression (e.g. 2+2)"
+    />
+    <button class="add">Calculate</button>
+
+    <div class="output" id="output"></div>
+    <div class="roast" id="roast"></div>
+
+    <script type="module">
+      import hindiRoasts from "./Jokes.js";
+      let calculate = () => {
+        const expr = document.getElementById("expression").value;
+        const output = document.getElementById("output");
+        const roastDiv = document.getElementById("roast");
+        roastDiv.textContent = "";
+        output.textContent = "";
+
+        try {
+          if (!/^[0-9+\-*/().\s]+$/.test(expr))
+            throw new Error("Invalid Expression");
+          const result = eval(expr);
+          if (!isFinite(result)) throw new Error("Divide by Zero");
+          output.textContent = `Result: ${result}`;
+        } catch (err) {
+          output.textContent = "😵 Invalid expression!";
+          const rend = Math.floor(Math.random() * 230);
+          roastDiv.textContent = `Result: ${hindiRoasts[rend]} 👼😎😁😁😀😀`;
+        }
+      };
+      document.querySelector("button").addEventListener("click", calculate);
+    </script>
+  </body>
+</html>
